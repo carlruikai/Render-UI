@@ -1,0 +1,15 @@
+#version 330 core
+
+in vec2 TexCoord;
+
+uniform vec3 floorColor;
+
+
+out vec4 color;
+
+uniform sampler2D ourTexture;
+
+void main()
+{
+	color = texture(ourTexture, TexCoord) * vec4(floorColor, 1.0f);
+}
