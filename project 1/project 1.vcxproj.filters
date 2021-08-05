@@ -45,6 +45,9 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="rope.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -57,9 +60,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="sphere_camera.h">
@@ -95,6 +95,15 @@
     <ClInclude Include="ImGuiFileBrowser.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="mass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="spring.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rope.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="bunnyvertex.txt" />
@@ -109,6 +118,14 @@
     <Text Include="simple_fragment.txt" />
     <Text Include="shadow_vertex.txt" />
     <Text Include="shadow_fragment.txt" />
+    <Text Include="simple_sphere_vertex.txt" />
+    <Text Include="simple_sphere_fragment.txt" />
+    <Text Include="cloth_vertex.txt" />
+    <Text Include="cloth_fragment.txt" />
+    <Text Include="mass_vertex.txt" />
+    <Text Include="mass_fragment.txt" />
+    <Text Include="line_vertex.txt" />
+    <Text Include="line_fragment.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="wood.png">

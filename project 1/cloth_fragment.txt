@@ -1,0 +1,76 @@
+#version 330 core
+
+uniform vec3 lightColor;
+uniform vec3 lightPos;
+uniform vec3 viewPos;
+
+uniform vec3 direColor;
+uniform vec3 direDir;
+uniform float AS;
+uniform float AS1;
+uniform float SS;
+uniform float SS1;
+uniform float SN;
+uniform float SN1;
+
+in vec3 FragPos;
+in vec3 Normal;
+in float frag_alpha;
+in vec3 objectColor;
+
+out vec4 color;
+
+void main()
+{             
+	//float ambientStrength = 0.5f;
+	//vec3 ambient = ambientStrength * lightColor;
+
+	//vec3 norm = normalize(Normal);
+	//vec3 lightDir = normalize(lightPos - FragPos);
+	//float diff = max(dot(norm, lightDir), 0.0);
+	//vec3 diffuse = diff * lightColor;
+
+	//float specularStrength = 0.3f;
+	//vec3 viewDir = normalize(viewPos - FragPos);
+	//vec3 reflectDir = reflect(-lightDir, norm);
+	//float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+	//vec3 specular = specularStrength * spec * lightColor;
+
+	//vec3 result = (ambient + diffuse + specular) * objectColor;
+
+	//color = vec4(result, frag_alpha);
+	
+    float ambientStrength = AS;
+    float ambientStrength1 = AS1;
+    vec3 ambient = ambientStrength * lightColor;
+    vec3 dire_ambient = ambientStrength1 * direColor;
+
+    vec3 norm = normalize(Normal);
+    vec3 lightDir = normalize(lightPos - FragPos);
+    float diff = max(dot(norm, lightDir), 0.0);
+    vec3 diffuse = diff * lightColor;
+    
+
+    vec3 dir_Dir = normalize(direDir); 
+    float diff1 = max(dot(norm, dir_Dir), 0.0);
+    vec3 dire_diffuse = diff1 * direColor;
+
+    float specularStrength = SS;
+    vec3 viewDir = normalize(viewPos - FragPos);
+    vec3 reflectDir = reflect(-lightDir, norm);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), SN);
+    vec3 specular = specularStrength * spec * lightColor;
+
+    float specularStrength1 = SS1;
+    vec3 viewDir1 = normalize(viewPos - FragPos);
+    vec3 reflectDir1 = reflect(-dir_Dir, norm);
+    float spec1 = pow(max(dot(viewDir1, reflectDir1), 0.0), SN1);
+    vec3 dire_specular = specularStrength1 * spec1 * direColor;
+
+    vec3 result = (ambient + diffuse + specular) * objectColor;
+    
+    vec3 result1 = (dire_ambient + dire_diffuse + dire_specular) * objectColor;
+
+    vec3 total_result = result + result1 ;
+    color = vec4(total_result, frag_alpha);
+}

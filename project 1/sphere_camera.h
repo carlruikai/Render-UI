@@ -49,6 +49,15 @@ public:
 		return glm::lookAt(this->Position, glm::vec3(0.0f, 0.0f, 0.0f), this->Up);
 	}
 
+	glm::vec3 GetUpVector()
+	{
+		return this->Up;
+	}
+
+	glm::vec3 GetRightVector()
+	{
+		return this->Right;
+	}
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime)
 	{
@@ -58,12 +67,14 @@ public:
 			glm::mat4 trans(1.0f);
 			trans = glm::rotate(trans, glm::radians(-velocity), this->rotate_axis);
 			this->Position = glm::vec3(trans * glm::vec4(this->Position, 1.0f));
+			this->updateCameraVectors();
 		}
 		if (direction == BACKWARD)
 		{
 			glm::mat4 trans(1.0f);
 			trans = glm::rotate(trans, glm::radians(velocity), this->rotate_axis);
 			this->Position = glm::vec3(trans * glm::vec4(this->Position, 1.0f));
+			this->updateCameraVectors();
 		}
 		if (direction == LEFT)
 		{
@@ -71,6 +82,7 @@ public:
 			trans = glm::rotate(trans, glm::radians(-velocity), glm::vec3(0.0, 1.0, 0.0));
 			this->Position = glm::vec3(trans * glm::vec4(this->Position, 1.0f));
 			this->rotate_axis = glm::vec3(trans * glm::vec4(this->rotate_axis, 1.0f));
+			this->updateCameraVectors();
 		}
 		if (direction == RIGHT)
 		{
@@ -78,6 +90,7 @@ public:
 			trans = glm::rotate(trans, glm::radians(velocity), glm::vec3(0.0, 1.0, 0.0));
 			this->Position = glm::vec3(trans * glm::vec4(this->Position, 1.0f));
 			this->rotate_axis = glm::vec3(trans * glm::vec4(this->rotate_axis, 1.0f));
+			this->updateCameraVectors();
 		}
 	}
 
@@ -117,9 +130,10 @@ private:
 	void updateCameraVectors()
 	{
 		glm::vec3 front;
-		front.x = cos(glm::radians(this->Yaw)) * cos(glm::radians(this->Pitch));
-		front.y = sin(glm::radians(this->Pitch));
-		front.z = sin(glm::radians(this->Yaw)) * cos(glm::radians(this->Pitch));
+		//front.x = cos(glm::radians(this->Yaw)) * cos(glm::radians(this->Pitch));
+		//front.y = sin(glm::radians(this->Pitch));
+		//front.z = sin(glm::radians(this->Yaw)) * cos(glm::radians(this->Pitch));
+		front = glm::vec3(0.0, 0.0, 0.0) - this->Position;
 		this->Front = glm::normalize(front);
 		this->Right = glm::normalize(glm::cross(this->Front, this->WorldUp));
 		this->Up = glm::normalize(glm::cross(this->Right, this->Front));
